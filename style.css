@@ -109,6 +109,31 @@ header {
     background-clip: text;
 }
 
+.info-section {
+  background: var(--card-bg);
+  color: var(--text);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: 2rem auto;
+  max-width: 800px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.section-header {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+
 .search-container {
     display: flex;
     flex: 1;
@@ -597,4 +622,5 @@ footer {
     .zone-item:hover {
         transform: translateY(-4px) scale(1.01);
     }
+
 }
