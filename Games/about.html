@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clever</title>
+</head>
+<body>
+    <button onclick="openSiteInBlank()">Open Gn Math Clever</button>
+
+    <script>
+        function openSiteInBlank() {
+            var newWindow = window.open();
+
+            var iframe = newWindow.document.createElement('iframe');
+
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = 'none';
+            iframe.src = 'https://clever.college';
+
+            newWindow.document.body.appendChild(iframe);
+        }
+    </script>
+</body>
+</html>
