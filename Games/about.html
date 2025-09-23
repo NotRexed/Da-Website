@@ -1,24 +1,310 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Clever</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Movies & TV Selector</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+    /* Particles background */
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: #000;
+    }
+
+    /* Body */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* Frosted glass panel */
+    .panel {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 350px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+
+    /* Button container */
+    .button-container {
+      position: relative;
+      display: flex;
+      width: 100%;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    button:hover { background: rgba(255,255,255,0.2); }
+    button.active { background: rgba(255,255,255,0.3); font-weight: bold; }
+
+    .slider-indicator {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50%;
+      height: 4px;
+      background: #ffffffaa;
+      border-radius: 2px;
+      transition: left 0.3s;
+    }
+
+    /* Inputs */
+    .inputs input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      font-size: 14px;
+      outline: none;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+    .inputs input::placeholder { color: rgba(255,255,255,0.7); }
+    .inputs input:focus { background: rgba(255,255,255,0.25); }
+
+    /* Go button */
+    #goButton {
+      padding: 12px 25px;
+      font-size: 16px;
+      color: white;
+      background: rgba(40, 167, 69, 0.8);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+    }
+    #goButton:hover { background: rgba(40, 167, 69, 1); }
+
+    /* Header from About page */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .site-header .header-content { display: flex; justify-content: space-between; width: 100%; align-items: center; }
+    .site-header .logo { font-weight: bold; font-size: 1.2rem; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .header-right a, .header-right button { color: white; text-decoration: none; background: none; border: none; cursor: pointer; }
+    .header-right a.active { text-decoration: underline; }
+
+    /* Settings overlay */
+    .settings-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 10; justify-content: center; align-items: center; }
+    .settings-popup { background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); padding: 20px; border-radius: 15px; width: 300px; color: white; }
+    .settings-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .settings-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; cursor: pointer; border: none; width: 100%; color: white; }
+  </style>
 </head>
-<body>
-    <button onclick="openSiteInBlank()">Open Gn Math Clever</button>
+<body class="dark-mode">
 
-    <script>
-        function openSiteInBlank() {
-            var newWindow = window.open();
+  <!-- Particles background -->
+  <div id="particles-js"></div>
 
-            var iframe = newWindow.document.createElement('iframe');
+<!-- Header (single settings button) -->
+  <header class="site-header" id="mainHeader">
+    <div class="header-content">
+      <div class="logo">
+  <img src="logo.png" />
+</div>
 
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            iframe.style.border = 'none';
-            iframe.src = 'https://clever.college';
 
-            newWindow.document.body.appendChild(iframe);
-        }
-    </script>
+      <div class="header-right">
+  <!-- Hidden select to keep existing code working -->
+<select id="sortOptions" style="display:none;">
+  <option value="name">Name</option>
+  <option value="id">ID (Date)</option>
+  <option value="popular">Popular</option>
+</select>
+  <div class="dropdown" id="sortDropdown">
+  <button class="dropdown-toggle">Sort: <span id="currentSort">Name</span> ▼</button>
+  <ul class="dropdown-menu">
+    <li data-value="name">Name</li>
+    <li data-value="id">ID (Date)</li>
+    <li data-value="popular">Popular</li>
+  </ul>
+</div>
+
+
+   <a href="movies.html" class="movies-link">Movies</a>
+
+  <!-- About link -->
+  <a href="about.html" class="about-link">About</a>
+
+  <!-- New Changelog link -->
+  <a href="changelog.html" class="changelog-link">Changelog</a>
+
+        <!-- single settings button -->
+        <button id="settings" aria-label="Settings" title="Settings">⚙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Settings Overlay -->
+  <div id="settingsOverlay" class="settings-overlay" aria-hidden="true">
+    <div class="settings-popup">
+      <div class="settings-header">
+        <h3>Settings</h3>
+        <button id="closeSettings" aria-label="Close settings">×</button>
+      </div>
+      <div class="settings-body">
+        <button class="settings-item" id="toggle-particles">
+          <i class="fa-solid fa-toggle-on" style="color: #63E6BE;"></i> Toggle Particles
+        </button>
+        <button class="settings-item" id="switch-background">
+          <i class="fa-solid fa-shuffle" style="color: #4FC3F7;"></i> Switch Background
+        </button>
+        <button class="settings-item" id="tab-cloak">
+          <i class="fa-solid fa-copy"></i> Tab Cloak
+        </button>
+        <button class="settings-item" id="change-particles-color">
+          <i class="fa-solid fa-eye-dropper" style="color: #74C0FC;"></i> Change Particle Color
+        </button>
+        <button class="settings-item" id="toggle-theme">
+          <i class="fa-solid fa-lightbulb" style="color: #FFD43B;"></i> Toggle Color Mode
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel -->
+  <div class="panel">
+    <div class="button-container">
+      <button id="movieBtn" class="active">Movie</button>
+      <button id="tvshowBtn">TV Show</button>
+      <div class="slider-indicator"></div>
+    </div>
+
+    <div class="inputs">
+      <input type="text" id="showId" placeholder="Enter Movie ID">
+      <input type="text" id="season" placeholder="Season" style="display:none;">
+      <input type="text" id="episode" placeholder="Episode" style="display:none;">
+    </div>
+
+    <button id="goButton" type="button">Go</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+let currentType = "movie"; // move outside DOMContentLoaded
+document.addEventListener("DOMContentLoaded", () => {
+  const movieBtn = document.getElementById("movieBtn");
+  const tvshowBtn = document.getElementById("tvshowBtn");
+  const slider = document.querySelector(".slider-indicator");
+  const goButton = document.getElementById("goButton");
+  const showIdInput = document.getElementById("showId");
+  const seasonInput = document.getElementById("season");
+  const episodeInput = document.getElementById("episode");
+
+  function updateSlider(type) {
+    if (type === "movie") {
+      slider.style.left = "0";
+      movieBtn.classList.add("active");
+      tvshowBtn.classList.remove("active");
+      seasonInput.style.display = "none";
+      episodeInput.style.display = "none";
+      showIdInput.placeholder = "Enter Movie ID";
+      currentType = "movie";
+    } else {
+      slider.style.left = "50%";
+      tvshowBtn.classList.add("active");
+      movieBtn.classList.remove("active");
+      seasonInput.style.display = "block";
+      episodeInput.style.display = "block";
+      showIdInput.placeholder = "Enter TV Show ID";
+      currentType = "tv";
+    }
+  }
+
+  movieBtn.addEventListener("click", () => updateSlider("movie"));
+  tvshowBtn.addEventListener("click", () => updateSlider("tv"));
+
+  goButton.addEventListener("click", () => {
+    const showId = showIdInput.value.trim();
+    const season = seasonInput.value.trim();
+    const episode = episodeInput.value.trim();
+
+    if (!showId) { alert("Enter a Movie or TV Show ID."); return; }
+
+    let url = "";
+if (currentType === "movie") {
+  url = `https://www.vidking.net/embed/movie/${showId}`;
+} else if (currentType === "tv") {
+  if (!season || !episode) { alert("Enter Season and Episode."); return; }
+  url = `https://www.vidking.net/embed/tv/${showId}/${season}/${episode}`;
+}
+
+// Corsfix proxy URL
+const proxy = "https://proxy.corsfix.com/";
+
+// Open in a new window with the proxy
+const w = window.open();
+w.document.write(`
+  <iframe 
+    src="${proxy}${url}" 
+    width="100%" 
+    height="100%" 
+    frameborder="0" 
+    allowfullscreen>
+  </iframe>
+`);
+w.document.close();
+
+  });
+
+  // Default state
+  updateSlider("movie");
+});
+
+</script>
 </body>
 </html>
