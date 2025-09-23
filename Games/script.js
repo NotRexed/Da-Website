@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleThemeBtn = document.getElementById('toggle-theme');
 
     // CDN / paths
-    const defaultZones = "https://cdn.jsdelivr.net/gh/NotRexed/assets@latest/all-games-zone.json";
+    const defaultZones = "https://cdn.jsdelivr.net/gh/NotRexed/assets@main/all-games-zone.json";
     const fallbackZones = "https://cdn.jsdelivr.net/gh/NotRexed/assets/zone.json";
     const coverURL = "https://cdn.jsdelivr.net/gh/NotRexed/covers@main";
     const htmlURL = "https://cdn.jsdelivr.net/gh/NotRexed/html@main";
@@ -800,4 +800,5 @@ function fullscreenZone() {
     } else if (zoneFrame.msRequestFullscreen) {
         zoneFrame.msRequestFullscreen();
     }
+
 }
