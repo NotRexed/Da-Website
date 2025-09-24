@@ -443,7 +443,7 @@ html {
 
 #searchBar:focus {
     background: var(--text);
-    box-shadow: 0 0 0 3px rgba(252, 38, 81, 0.25), var(--shadow);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25), var(--shadow);
     transform: translateY(-1px);
     color: var(--glass);
 }
@@ -802,7 +802,7 @@ main {
 #popupBody input[type="text"]:focus,
 #popupBody input[type="file"]:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(252, 38, 81, 0.1);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
     transform: translateY(-1px);
 }
 
@@ -1588,3 +1588,531 @@ main {
 #featuredZonesWrapper {
   margin-bottom: 2rem; /* optional spacing below */
 }
+
+/* === Apply search box style site-wide to inputs and selects === */
+input[type="text"],
+input[type="file"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: var(--text);
+    font-size: 15px;
+    padding: 0.875rem 1rem;
+    border: 0;
+    border-radius: var(--radius);
+    outline: none;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
+    background: var(--text);
+    color: var(--glass);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25), var(--shadow);
+    transform: translateY(-1px);
+}
+
+::placeholder {
+    color: var(--text-muted);
+}
+
+#idInput {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+#idInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#idInput:focus {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+
+#show-id-input,
+#show-id-input:focus,
+#show-id-input:invalid,
+#show-id-input:focus:invalid {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Make all inputs same height and style */
+#showId,
+.input-row input {
+  padding: 1rem;          /* consistent padding */
+  font-size: 1.1rem;      /* same font size */
+  border-radius: 8px;     /* consistent rounding */
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  text-align: center;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Focus effect */
+#showId:focus,
+.input-row input:focus {
+  background: rgba(255,255,255,0.2);
+  box-shadow: 0 4px 10px rgba(255,255,255,0.25), 0 4px 6px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+
+/* Arrange season/episode inputs side by side with same width */
+.input-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.input-row input {
+  flex: 1; /* make them equal width */
+}
+
+/* Go button - same style as inputs */
+#goButton {
+  padding: 1rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  text-align: center;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 1rem;
+}
+
+/* Hover / focus effect like inputs */
+#goButton:hover,
+#goButton:focus {
+  background: rgba(255,255,255,0.2);
+  box-shadow: 0 4px 10px rgba(255,255,255,0.25), 0 4px 6px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+
+/* Make Show ID same height as season/episode inputs */
+#showId {
+  width: 100%;
+  max-width: 500px;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  text-align: center;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  height: calc(1.1rem + 2 * 1rem); /* font-size + 2*padding */
+  box-sizing: border-box;          /* ensures padding included in height */
+}
+
+#goButton {
+  display: inline-block;            /* instead of block fill */
+  padding: 1rem;                    /* same vertical/horizontal space */
+  font-size: 1rem;                  /* match text size */
+  border-radius: var(--radius);     /* same rounding */
+  border: none;
+  background: rgba(255, 255, 255, 0.1); /* frosted look */
+  backdrop-filter: blur(10px);      /* frosted glass effect */
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#goButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+#goButton.active {
+  background: rgba(255,255,255,0.3);
+}
+
+.input-btn {
+  flex: 1;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border-radius: var(--radius, 8px);
+  border: none;
+  background: rgba(255, 255, 255, 0.1);        /* semi-transparent */
+  backdrop-filter: blur(20px);                  /* frosted glass */
+  -webkit-backdrop-filter: blur(20px);          /* for Safari */
+  color: white;
+  text-align: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.input-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.input-btn.active {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.25), 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.toggle-slider {
+  position: relative;
+  width: 300px;
+  max-width: 90%;
+  display: flex;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50px;
+  overflow: hidden;
+  margin: 0 auto 1rem auto;
+}
+
+.toggle-slider button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 0.75rem 0;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  z-index: 2;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.toggle-slider button.active {
+  color: black;
+}
+
+.slider-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: #4FC3F7;
+  border-radius: 50px;
+  transition: left 0.3s ease;
+  z-index: 1;
+}
+
+.slider-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: #4FC3F7;
+  border-radius: 50px;
+  transition: left 0.3s ease;
+  z-index: 0;           /* behind buttons */
+  pointer-events: none;  /* allows clicks to go through */
+}
+
+.toggle-slider {
+  position: relative;
+  width: 300px;
+  max-width: 90%;
+  display: grid;          /* changed from flex */
+  grid-template-columns: 1fr 1fr; /* 2 equal columns */
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50px;
+  overflow: hidden;
+  margin: 0 auto 1rem auto;
+}
+
+.toggle-slider button {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  z-index: 2;             /* above slider */
+  width: 100%;
+  padding: 0.75rem 0;
+  position: relative;     /* needed for z-index */
+  transition: color 0.3s ease;
+}
+
+.toggle-slider button.active {
+  color: black;
+}
+
+.slider-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: #4FC3F7;
+  border-radius: 50px;
+  transition: left 0.3s ease;
+  z-index: 1;             /* behind buttons */
+  pointer-events: none;   /* ensure clicks pass through */
+}
+
+.toggle-slider {
+  position: relative;
+  width: 300px;
+  max-width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50px;
+  overflow: hidden;
+  margin: 0 auto 1rem auto;
+  user-select: none;
+}
+
+.toggle-slider button {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  padding: 0.75rem 0;
+  transition: color 0.3s ease;
+}
+
+.toggle-slider button.active {
+  color: black;
+}
+
+.slider-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: #4FC3F7;
+  border-radius: 50px;
+  transition: left 0.3s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.toggle-slider {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 500px; /* same as Show ID */
+  border-radius: 8px; /* same as Show ID */
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow: hidden;
+  margin-bottom: 1rem;
+  height: 3rem; /* match Show ID height */
+}
+
+.toggle-slider button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  z-index: 2;
+  cursor: pointer;
+  transition: color 0.25s;
+  font-weight: 500;
+}
+
+.toggle-slider button.active {
+  color: #000; /* text color of selected button */
+}
+
+.slider-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: rgba(255,255,255,0.25); /* slightly lighter for selected */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 8px;
+  transition: left 0.25s;
+  z-index: 1;
+}
+
+.panel {
+    background: rgba(255, 255, 255, 0.1);  /* translucent layer */
+    backdrop-filter: blur(20px);           /* frosted glass blur */
+    -webkit-backdrop-filter: blur(20px);   /* Safari support */
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* subtle glass edge */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+}
+
+.site-header .logo img {
+  height: 40px;       /* Adjust as needed */
+  width: auto;
+  display: block;
+}
+
+/* === Force About.html header to match index.html header === */
+#mainHeader.site-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* Frosted glass look like index.html */
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* Smooth transition + shadow */
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+  z-index: 1000;
+}
+
+#mainHeader.site-header.scrolled {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Inner content */
+#mainHeader .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Logo (match Toga Games style) */
+#mainHeader .logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+}
+
+/* Header right controls */
+#mainHeader .header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Links */
+#mainHeader .header-right a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#mainHeader .header-right a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Settings button */
+#mainHeader #settings {
+  background: rgba(255, 255, 255, 0.1);
+  border: 0;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+#mainHeader #settings:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+/* === Force About.html header buttons to match Index.html === */
+#mainHeader .header-right a,
+#mainHeader .header-right button {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: none !important;
+  border-radius: var(--radius) !important;
+  padding: 0.5rem 0.75rem !important;
+  color: white !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease !important;
+}
+
+#mainHeader .header-right a:hover,
+#mainHeader .header-right button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+/* === Unify About.html header button/link sizes with Index.html === */
+#mainHeader .header-right a,
+#mainHeader .header-right button,
+#mainHeader #settings,
+#mainHeader #sortOptions,
+#mainHeader .dropdown-toggle {
+  font-size: 1rem !important;     /* match index */
+  font-weight: 600 !important;    /* bold like index */
+  padding: 0.5rem 0.75rem !important;
+  border-radius: var(--radius) !important;
+  line-height: 1.4 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  text-decoration: none !important;
+  border: none !important;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* Hover states */
+#mainHeader .header-right a:hover,
+#mainHeader .header-right button:hover,
+#mainHeader #settings:hover,
+#mainHeader .dropdown-toggle:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow) !important;
+}
+

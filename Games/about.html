@@ -6,7 +6,7 @@
   <title>Movies & TV Selector</title>
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
@@ -114,7 +114,7 @@
     }
     #goButton:hover { background: rgba(40, 167, 69, 1); }
 
-    /* Header from About page */
+    /* Header */
     .site-header {
       position: fixed;
       top: 0; left: 0;
@@ -148,44 +148,20 @@
   <!-- Particles background -->
   <div id="particles-js"></div>
 
-<!-- Header (single settings button) -->
+  <!-- Header -->
   <header class="site-header" id="mainHeader">
-    <div class="header-content">
-      <div class="logo">
-  <img src="logo.png" />
-</div>
-
-
-      <div class="header-right">
-  <!-- Hidden select to keep existing code working -->
-<select id="sortOptions" style="display:none;">
-  <option value="name">Name</option>
-  <option value="id">ID (Date)</option>
-  <option value="popular">Popular</option>
-</select>
-  <div class="dropdown" id="sortDropdown">
-  <button class="dropdown-toggle">Sort: <span id="currentSort">Name</span> ▼</button>
-  <ul class="dropdown-menu">
-    <li data-value="name">Name</li>
-    <li data-value="id">ID (Date)</li>
-    <li data-value="popular">Popular</li>
-  </ul>
-</div>
-
-
-   <a href="movies.html" class="movies-link">Movies</a>
-
-  <!-- About link -->
+  <div class="header-content">
+    <div class="logo">Toga Games</div>
+    <div class="header-right">
+  <a href="index.html" class="home-link">Home</a>
+  <a href="movies.html" class="movies-link">Movies</a>
   <a href="about.html" class="about-link">About</a>
-
-  <!-- New Changelog link -->
   <a href="changelog.html" class="changelog-link">Changelog</a>
+  <button id="settings" aria-label="Settings" title="Settings">⚙</button>
+</div>
+  </div>
+</header>
 
-        <!-- single settings button -->
-        <button id="settings" aria-label="Settings" title="Settings">⚙</button>
-      </div>
-    </div>
-  </header>
 
   <!-- Settings Overlay -->
   <div id="settingsOverlay" class="settings-overlay" aria-hidden="true">
@@ -195,21 +171,11 @@
         <button id="closeSettings" aria-label="Close settings">×</button>
       </div>
       <div class="settings-body">
-        <button class="settings-item" id="toggle-particles">
-          <i class="fa-solid fa-toggle-on" style="color: #63E6BE;"></i> Toggle Particles
-        </button>
-        <button class="settings-item" id="switch-background">
-          <i class="fa-solid fa-shuffle" style="color: #4FC3F7;"></i> Switch Background
-        </button>
-        <button class="settings-item" id="tab-cloak">
-          <i class="fa-solid fa-copy"></i> Tab Cloak
-        </button>
-        <button class="settings-item" id="change-particles-color">
-          <i class="fa-solid fa-eye-dropper" style="color: #74C0FC;"></i> Change Particle Color
-        </button>
-        <button class="settings-item" id="toggle-theme">
-          <i class="fa-solid fa-lightbulb" style="color: #FFD43B;"></i> Toggle Color Mode
-        </button>
+        <button class="settings-item" id="toggle-particles"><i class="fa-solid fa-toggle-on" style="color: #63E6BE;"></i> Toggle Particles</button>
+        <button class="settings-item" id="switch-background"><i class="fa-solid fa-shuffle" style="color: #4FC3F7;"></i> Switch Background</button>
+        <button class="settings-item" id="tab-cloak"><i class="fa-solid fa-copy"></i> Tab Cloak</button>
+        <button class="settings-item" id="change-particles-color"><i class="fa-solid fa-eye-dropper" style="color: #74C0FC;"></i> Change Particle Color</button>
+        <button class="settings-item" id="toggle-theme"><i class="fa-solid fa-lightbulb" style="color: #FFD43B;"></i> Toggle Color Mode</button>
       </div>
     </div>
   </div>
@@ -235,7 +201,7 @@
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="script.js"></script>
   <script>
-let currentType = "movie"; // move outside DOMContentLoaded
+let currentType = "movie";
 document.addEventListener("DOMContentLoaded", () => {
   const movieBtn = document.getElementById("movieBtn");
   const tvshowBtn = document.getElementById("tvshowBtn");
@@ -269,44 +235,40 @@ document.addEventListener("DOMContentLoaded", () => {
   tvshowBtn.addEventListener("click", () => updateSlider("tv"));
 
   goButton.addEventListener("click", () => {
-    const showId = showIdInput.value.trim();
-    const season = seasonInput.value.trim();
-    const episode = episodeInput.value.trim();
+  const showId = showIdInput.value.trim();
+  const season = seasonInput.value.trim();
+  const episode = episodeInput.value.trim();
 
-    if (!showId) { alert("Enter a Movie or TV Show ID."); return; }
+  if (!showId) { alert("Enter a Movie or TV Show ID."); return; }
 
-    let url = "";
-if (currentType === "movie") {
-  url = `https://www.vidking.net/embed/movie/${showId}`;
-} else if (currentType === "tv") {
-  if (!season || !episode) { alert("Enter Season and Episode."); return; }
-  url = `https://www.vidking.net/embed/tv/${showId}/${season}/${episode}`;
-}
+  let url = "";
+  if (currentType === "movie") {
+    url = `https://www.vidking.net/embed/movie/${showId}`;
+  } else if (currentType === "tv") {
+    if (!season || !episode) { alert("Enter Season and Episode."); return; }
+    url = `https://www.vidking.net/embed/tv/${showId}/${season}/${episode}`;
+  }
 
-const w = window.open("", "_blank");
-if (!w) { alert("Popup blocked! Allow popups."); return; }
+  const w = window.open("", "_blank");
+  if (!w) { alert("Popup blocked! Allow popups."); return; }
 
-w.document.body.style.margin = "0";
-w.document.body.style.height = "100vh";
+  w.document.body.style.margin = "0";
+  w.document.body.style.height = "100vh";
 
-const iframe = w.document.createElement("iframe");
-iframe.src = url; // <-- no proxy here
-iframe.style.width = "100%";
-iframe.style.height = "100%";
-iframe.style.border = "none";
-iframe.allowFullscreen = true;
+  const iframe = w.document.createElement("iframe");
+  iframe.src = url;
+  iframe.style.width = "100%";
+  iframe.style.height = "100%";
+  iframe.style.border = "none";
+  iframe.allowFullscreen = true;
 
-w.document.body.appendChild(iframe);
+  w.document.body.appendChild(iframe);
+});
 
-    
-  });
 
   // Default state
   updateSlider("movie");
 });
-
-</script>
+  </script>
 </body>
 </html>
-
-

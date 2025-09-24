@@ -800,5 +800,42 @@ function fullscreenZone() {
     } else if (zoneFrame.msRequestFullscreen) {
         zoneFrame.msRequestFullscreen();
     }
-
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const movieBtn = document.getElementById("movieBtn");
+const tvshowBtn = document.getElementById("tvshowBtn");
+const slider = document.querySelector(".slider-indicator");
+const goButton = document.getElementById("goButton");
+const showIdInput = document.getElementById("showId");
+const seasonInput = document.getElementById("season");
+const episodeInput = document.getElementById("episode");
+
+let currentType = "movie"; // default
+
+function updateSlider(type) {
+  if (type === "movie") {
+    slider.style.left = "0";
+    movieBtn.classList.add("active");
+    tvshowBtn.classList.remove("active");
+    seasonInput.style.display = "none";
+    episodeInput.style.display = "none";
+    showIdInput.placeholder = "Enter Movie ID";
+    currentType = "movie";
+  } else {
+    slider.style.left = "50%";
+    tvshowBtn.classList.add("active");
+    movieBtn.classList.remove("active");
+    seasonInput.style.display = "block";
+    episodeInput.style.display = "block";
+    showIdInput.placeholder = "Enter TV Show ID";
+    currentType = "tv";
+  }
+}
+
+movieBtn.addEventListener("click", () => updateSlider("movie"));
+tvshowBtn.addEventListener("click", () => updateSlider("tv"));
+
+// Initialize default state
+updateSlider("movie");
+});
