@@ -282,6 +282,23 @@ if (currentType === "movie") {
   if (!season || !episode) { alert("Enter Season and Episode."); return; }
   url = `https://www.vidking.net/embed/tv/${showId}/${season}/${episode}`;
 }
+
+const w = window.open("", "_blank");
+if (!w) { alert("Popup blocked! Allow popups."); return; }
+
+w.document.body.style.margin = "0";
+w.document.body.style.height = "100vh";
+
+const iframe = w.document.createElement("iframe");
+iframe.src = url; // <-- no proxy here
+iframe.style.width = "100%";
+iframe.style.height = "100%";
+iframe.style.border = "none";
+iframe.allowFullscreen = true;
+
+w.document.body.appendChild(iframe);
+
+    
   });
 
   // Default state
@@ -291,4 +308,5 @@ if (currentType === "movie") {
 </script>
 </body>
 </html>
+
 
