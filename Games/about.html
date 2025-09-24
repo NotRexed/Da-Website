@@ -282,23 +282,6 @@ if (currentType === "movie") {
   if (!season || !episode) { alert("Enter Season and Episode."); return; }
   url = `https://www.vidking.net/embed/tv/${showId}/${season}/${episode}`;
 }
-
-// Corsfix proxy URL
-const proxy = "https://proxy.corsfix.com/";
-
-// Open in a new window with the proxy
-const w = window.open();
-w.document.write(`
-  <iframe 
-    src="${proxy}${url}" 
-    width="100%" 
-    height="100%" 
-    frameborder="0" 
-    allowfullscreen>
-  </iframe>
-`);
-w.document.close();
-
   });
 
   // Default state
@@ -308,3 +291,4 @@ w.document.close();
 </script>
 </body>
 </html>
+
