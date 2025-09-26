@@ -14,16 +14,37 @@
   <style>
     /* particles container */
     #particles-js {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: -1; background: #000;
-    }
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+#particles-js::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;           /* stays visible even before canvas exists */
+  z-index: -1;
+}
+#particles-js canvas {
+  background: transparent !important;
+}
+
+
+
   </style>
 </head>
+
+
 <body class="dark-mode">
 
   <!-- particles background -->
-  <div id="particles-js"></div>
+  <div id="particles-js">
+  <canvas class="particles-js-canvas-el"></canvas>
+</div>
+
 
   <!-- Header (single settings button) -->
   <header class="site-header" id="mainHeader">
@@ -110,7 +131,6 @@
       </div>
       <div class="zone-controls">
         <button onclick="fullscreenZone()">Fullscreen</button>
-        <button onclick="aboutBlank()">Open in New Tab</button>
         <button onclick="closeZone()">Close</button>
       </div>
     </div>
@@ -139,12 +159,11 @@
     </div>
   </footer>
 
-  <!-- SCRIPTS -->
-  <script src="script.js"></script>
+<!-- load particles library first (defer ensures DOM exists) -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+<!-- then your script -->
+<script src="script.js" defer></script>
 
-  <!-- particles.js lib (keeps your existing particle init if present in script.js) -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  </script>
 
 <style>
 /* --- HEADER LAYOUT --- */

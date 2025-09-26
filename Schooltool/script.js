@@ -404,16 +404,6 @@ document.addEventListener('DOMContentLoaded', () => {
       try { const u = new URL(window.location); u.searchParams.delete('id'); history.pushState(null,'',u.toString()); } catch(e) {}
     }
 
-    // ---------- utilities ----------
-    function fullscreenZone() { const f = document.getElementById('zoneFrame'); if (!f) return alert('No game loaded.'); if (f.requestFullscreen) f.requestFullscreen(); else if (f.webkitRequestFullscreen) f.webkitRequestFullscreen(); }
-    function aboutBlank() {
-      const idText = zoneIdEl ? zoneIdEl.textContent : '';
-      const zone = zones.find(z => String(z.id) === String(idText));
-      if (!zone) return alert('No game loaded.');
-      const w = window.open('about:blank','_blank');
-      fetch(zone.url.replace('{HTML_URL}', htmlURL) + '?t=' + Date.now()).then(r => r.text()).then(html => { if (w) { w.document.open(); w.document.write(html); w.document.close(); } });
-    }
-
     // ---------- control buttons ----------
     document.getElementById('fullscreenBtn')?.addEventListener('click', fullscreenZone);
     document.getElementById('openTabBtn')?.addEventListener('click', () => { if (currentZoneURL) window.open(currentZoneURL, '_blank'); });
@@ -427,20 +417,21 @@ document.addEventListener('DOMContentLoaded', () => {
     closeSettingsBtn?.addEventListener('click', closeOverlay);
     settingsOverlay?.addEventListener('click', (e) => { if (e.target === settingsOverlay) closeOverlay(); });
     toggleParticlesBtn?.addEventListener('click', () => {
-  const p = document.getElementById('particles-js');
-  if (!p) return alert('Particles not found');
+  const nowOn = localStorage.getItem('particlesEnabled') !== 'false';
+  const next = !nowOn;
+  localStorage.setItem('particlesEnabled', next ? 'true' : 'false');
 
-  const currentlyHidden = (p.style.display === 'none');
-  if (currentlyHidden) {
-    p.style.display = '';
-    localStorage.setItem('particlesEnabled', 'true');
+  if (next) {
+    if (_particlesDiv) _particlesDiv.style.display = '';
+    initParticles(localStorage.getItem('particleMode') || 'default');
   } else {
-    p.style.display = 'none';
-    localStorage.setItem('particlesEnabled', 'false');
+    destroyParticles();
+    if (_particlesDiv) _particlesDiv.style.display = 'none';
   }
 
   closeOverlay();
-  });
+});
+
     toggleThemeBtn?.addEventListener('click', () => { document.body.classList.toggle('dark-mode'); closeOverlay(); });
 
     // ---------- particle color logic (efficient & safe) ----------
@@ -654,9 +645,91 @@ function hexToRgb(hex) {
       }
     });
 
-    // --- Initialize particles background ---
-    const savedMode = localStorage.getItem("particleMode") || "default";
-    particlesJS("particles-js", particleConfigs[savedMode]);
+    // === Particles: robust init / destroy / state handling ===
+const _particlesDiv = document.getElementById("particles-js");
+const _toggleBtn = document.getElementById("toggle-particles");
+
+function waitForParticlesLib(timeout = 10000) {
+  return new Promise((resolve, reject) => {
+    if (typeof particlesJS !== "undefined") return resolve();
+    const start = Date.now();
+    const t = setInterval(() => {
+      if (typeof particlesJS !== "undefined") { clearInterval(t); return resolve(); }
+      if (Date.now() - start > timeout) { clearInterval(t); return reject(new Error('particles.js not loaded')); }
+    }, 100);
+  });
+}
+
+function destroyParticles() {
+  if (window.pJSDom && window.pJSDom.length) {
+    try { window.pJSDom[0].pJS.fn.vendors.destroypJS(); } catch(e){}
+    window.pJSDom = [];
+  }
+  if (_particlesDiv) {
+    _particlesDiv.style.display = 'none';
+    // leave canvas in place → black background from ::before stays
+  }
+}
+
+
+
+function initParticles(mode = 'default') {
+  const cfg = particleConfigs[mode] || particleConfigs.default;
+  destroyParticles(); // clean any existing
+
+  if (_particlesDiv) {
+    _particlesDiv.style.display = 'block';
+  }
+
+  // Force-create a canvas so we control its background
+  let canvas = _particlesDiv.querySelector('canvas');
+  if (!canvas) {
+    canvas = document.createElement('canvas');
+    canvas.className = 'particles-js-canvas-el';
+    canvas.style.background = 'transparent';
+    _particlesDiv.appendChild(canvas);
+  }
+
+  particlesJS('particles-js', cfg);
+}
+
+
+
+function setParticlesIcon(isOn) {
+  const icon = _toggleBtn?.querySelector('i');
+  if (!icon) return;
+  icon.classList.toggle('fa-toggle-on', !!isOn);
+  icon.classList.toggle('fa-toggle-off', !isOn);
+  icon.style.color = isOn ? '#63E6BE' : '#aaa';
+}
+
+function applyParticlesState() {
+  const enabled = localStorage.getItem('particlesEnabled');
+  const mode = localStorage.getItem('particleMode') || 'default';
+
+  if (enabled === 'false') {
+    destroyParticles();
+    if (_particlesDiv) _particlesDiv.style.display = 'none';
+    setParticlesIcon(false);
+  } else {
+    if (_particlesDiv) _particlesDiv.style.display = '';
+    initParticles(mode);
+    setParticlesIcon(true);
+  }
+}
+
+// expose helpers so you can call them from the Console for debugging
+window.initParticles = initParticles;
+window.destroyParticles = destroyParticles;
+window.applyParticlesState = applyParticlesState;
+
+// run once at startup
+if (localStorage.getItem('particlesEnabled') === null) {
+  // default to ON if user never set it
+  localStorage.setItem('particlesEnabled', 'true');
+}
+applyParticlesState();
+
 
 
     // ---------- attach search/sort listeners ----------
@@ -795,35 +868,23 @@ document.addEventListener("DOMContentLoaded", () => {
 const switchBgBtn = document.getElementById("switch-background");
 
 if (switchBgBtn) {
-  switchBgBtn.addEventListener("click", () => {
-    const current = localStorage.getItem("particleMode") || "default";
-    const next = current === "default" ? "alt" : "default";
+  switchBgBtn.addEventListener('click', () => {
+    const current = localStorage.getItem('particleMode') || 'default';
+    const next = current === 'default' ? 'alt' : 'default';
+    localStorage.setItem('particleMode', next);
 
-    // Save choice
-    localStorage.setItem("particleMode", next);
-
-    // Destroy and re-init particles.js
-    if (window.pJSDom && window.pJSDom.length) {
-      window.pJSDom[0].pJS.fn.vendors.destroypJS();
-      window.pJSDom = [];
+    // Only re-init if particles are enabled
+    if (localStorage.getItem('particlesEnabled') !== 'false') {
+      initParticles(next);
+    } else {
+      // saved mode changed but user has particles turned off; do nothing.
+      console.log('[script] particleMode saved to', next, 'but particles are disabled');
     }
-    particlesJS("particles-js", particleConfigs[next]);
 
     closeOverlay();
   });
 }
 
-function aboutBlank() {
-    const newWindow = window.open("about:blank", "_blank");
-    let zone = zones.find(zone => zone.id + '' === document.getElementById('zoneId').textContent).url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
-    fetch(zone+"?t="+Date.now()).then(response => response.text()).then(html => {
-        if (newWindow) {
-            newWindow.document.open();
-            newWindow.document.write(html);
-            newWindow.document.close();
-        }
-    })
-}
 
 function closeZone() {
     zoneViewer.style.display = "none";
@@ -883,4 +944,3 @@ tvshowBtn.addEventListener("click", () => updateSlider("tv"));
 // Initialize default state
 updateSlider("movie");
 });
-
