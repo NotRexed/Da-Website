@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Saratoga Schools</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-  <link rel="icon" type="image/png" sizes="180x180" href="favicon-180.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
-  <link rel="stylesheet" href="style.css">
+  <title>Movies & TV Selector</title>
+
+  <!-- Stylesheets -->
+   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
@@ -15,137 +14,26 @@
     /* Particles background */
     #particles-js {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      z-index: -1; background: #000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: #000;
     }
 
     /* Body */
-    body, header, nav, input, button {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-
-
-    /* --- HEADER LAYOUT --- */
-    header.site-header {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      background: rgba(25, 25, 25, 0.7);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
     }
 
-    .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0.8rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo-img {
-      height: 42px;
-      transition: transform 0.2s ease;
-    }
-    .logo-img:hover { transform: scale(1.05); }
-
-    .nav-center {
-      display: flex;
-      gap: 1.2rem;
-      justify-content: center;
-      flex: 1;
-    }
-    .nav-center a {
-      color: #fff;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.25s ease;
-    }
-    .nav-center a:hover {
-      background: rgba(79,195,247,0.25);
-      border-color: #4FC3F7;
-      box-shadow: 0 0 10px rgba(79,195,247,0.4);
-      transform: translateY(-2px);
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    #settings {
-      background: linear-gradient(135deg, #4FC3F7, #2196F3);
-      border: none;
-      border-radius: 50%;
-      width: 42px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    #settings:hover {
-      transform: rotate(25deg) scale(1.1);
-      box-shadow: 0 0 15px rgba(79,195,247,0.6);
-    }
-
-    .search-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-    .search-wrapper .search-btn {
-      background: linear-gradient(135deg, #4FC3F7, #2196F3);
-      border: none;
-      border-radius: 50%;
-      width: 42px;
-      height: 42px;
-      color: #fff;
-      font-size: 1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .search-wrapper .search-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 15px rgba(79,195,247,0.6);
-    }
-    .search-wrapper input {
-      position: absolute;
-      right: 50px;
-      width: 0;
-      opacity: 0;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-      font-size: 0.9rem;
-      outline: none;
-      transition: width 0.4s ease, opacity 0.3s ease;
-    }
-    .search-wrapper.active input {
-      width: 180px;
-      opacity: 1;
-    }
-
-    /* Panel, buttons, inputs, and goButton styles remain unchanged */
+    /* Frosted glass panel */
     .panel {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
       padding: 40px;
       border-radius: 20px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.25);
@@ -160,6 +48,7 @@
       z-index: 1;
     }
 
+    /* Button container */
     .button-container {
       position: relative;
       display: flex;
@@ -194,6 +83,14 @@
       transition: left 0.3s;
     }
 
+    .settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    }
+
+    /* Inputs */
     .inputs input {
       width: 100%;
       padding: 12px;
@@ -210,63 +107,80 @@
     .inputs input::placeholder { color: rgba(255,255,255,0.7); }
     .inputs input:focus { background: rgba(255,255,255,0.25); }
 
+    /* Go button */
     #goButton {
       padding: 12px 25px;
       font-size: 16px;
       color: white;
-      background: rgba(255, 0, 0, 0.8);
+      background: rgba(40, 167, 69, 0.8);
       border: none;
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s;
       width: 100%;
     }
-    #goButton:hover { background: rgb(255, 0, 0); }
+    #goButton:hover { background: rgba(40, 167, 69, 1); }
 
-    /* Settings Overlay */
+    /* Header */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .site-header .header-content { display: flex; justify-content: space-between; width: 100%; align-items: center; }
+    .site-header .logo { font-weight: bold; font-size: 1.2rem; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .header-right a, .header-right button { color: white; text-decoration: none; background: none; border: none; cursor: pointer; }
+    .header-right a.active { text-decoration: underline; }
+
+    /* Settings overlay */
     .settings-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 10; justify-content: center; align-items: center; }
     .settings-popup { background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); padding: 20px; border-radius: 15px; width: 300px; color: white; }
     .settings-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
     .settings-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; cursor: pointer; border: none; width: 100%; color: white; }
 
-  </style>
+
+
+</style>
 </head>
 <body class="dark-mode">
 
   <!-- Particles background -->
   <div id="particles-js"></div>
 
-  <!-- HEADER (updated like second HTML) -->
+  <!-- Header -->
   <header class="site-header" id="mainHeader">
-    <div class="header-content">
+   <div class="header-content">
+    <div class="logo">
+      <img src="logo.png" alt="Logo" class="logo-img" />
+</div>
+    <div class="header-right">
+  <a href="index.html" class="home-link">Home</a>
+  <a href="movies.html" class="movies-link">Movies</a>
+  <a href="about.html" class="about-link">About</a>
+  <a href="changelog.html" class="changelog-link">Changelog</a>
+  <button id="settings" aria-label="Settings" title="Settings">⚙</button>
+</div>
+  </div>
+</header>
 
-      <!-- LEFT: LOGO -->
-      <div class="logo">
-        <img src="logo.png" alt="Logo" class="logo-img" />
-      </div>
-
-      <!-- CENTER: NAVIGATION -->
-      <nav class="nav-center">
-        <a href="home.html">Home</a>
-        <a href="index.html">Games</a>
-      </nav>
-
-      <!-- RIGHT: SEARCH + SETTINGS -->
-      <div class="header-right">
-        <div class="search-wrapper">
-          <input type="text" id="searchBar" placeholder="Search..." />
-        </div>
-        <button id="settings" aria-label="Settings" title="Settings">⚙</button>
-      </div>
-    </div>
-  </header>
 
   <!-- Settings Overlay -->
   <div id="settingsOverlay" class="settings-overlay" aria-hidden="true">
     <div class="settings-popup">
       <div class="settings-header">
         <h3>Settings</h3>
-        <button id="closeSettings" aria-label="Close settings">‎ ‎ ‎ ‎ ‎‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎×</button>
+        <button id="closeSettings" aria-label="Close settings">‎ ‎ ‎ ‎ ‎‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ×</button>
       </div>
       <div class="settings-body">
         <button class="settings-item" id="toggle-particles"><i class="fa-solid fa-toggle-on" style="color: #63E6BE;"></i> Toggle Particles</button>
@@ -278,7 +192,7 @@
     </div>
   </div>
 
-  <!-- PANEL -->
+  <!-- Panel -->
   <div class="panel">
     <div class="button-container">
       <button id="movieBtn" class="active">Movie</button>
@@ -292,104 +206,81 @@
       <input type="text" id="episode" placeholder="Episode" style="display:none;">
     </div>
 
-    <button id="goButton" type="button">Currently Disabled</button>
+    <button id="goButton" type="button">Go</button>
   </div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="script.js"></script>
-
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // Search toggle
-    const searchWrapper = document.querySelector(".search-wrapper");
-    const searchBtn = searchWrapper.querySelector(".search-btn");
-    const searchInput = searchWrapper.querySelector("input");
+let currentType = "movie";
+document.addEventListener("DOMContentLoaded", () => {
+  const movieBtn = document.getElementById("movieBtn");
+  const tvshowBtn = document.getElementById("tvshowBtn");
+  const slider = document.querySelector(".slider-indicator");
+  const goButton = document.getElementById("goButton");
+  const showIdInput = document.getElementById("showId");
+  const seasonInput = document.getElementById("season");
+  const episodeInput = document.getElementById("episode");
 
-    searchBtn.addEventListener("click", () => {
-      searchWrapper.classList.toggle("active");
-      if(searchWrapper.classList.contains("active")) searchInput.focus();
-    });
-
-    searchInput.addEventListener("keypress", (e) => {
-      if(e.key === "Enter") {
-        const query = searchInput.value.toLowerCase().trim();
-        const allItems = document.querySelectorAll(".panel input, .inputs input");
-        allItems.forEach(item => {
-          const text = item.value.toLowerCase();
-          item.style.display = text.includes(query) ? "block" : "none";
-        });
-      }
-    });
-
-    // Movie/TV toggle
-    let currentType = "movie";
-    const movieBtn = document.getElementById("movieBtn");
-    const tvshowBtn = document.getElementById("tvshowBtn");
-    const slider = document.querySelector(".slider-indicator");
-    const goButton = document.getElementById("goButton");
-    const showIdInput = document.getElementById("showId");
-    const seasonInput = document.getElementById("season");
-    const episodeInput = document.getElementById("episode");
-
-    function updateSlider(type) {
-      if(type === "movie") {
-        slider.style.left = "0";
-        movieBtn.classList.add("active");
-        tvshowBtn.classList.remove("active");
-        seasonInput.style.display = "none";
-        episodeInput.style.display = "none";
-        showIdInput.placeholder = "Enter Movie ID";
-        currentType = "movie";
-      } else {
-        slider.style.left = "50%";
-        tvshowBtn.classList.add("active");
-        movieBtn.classList.remove("active");
-        seasonInput.style.display = "block";
-        episodeInput.style.display = "block";
-        showIdInput.placeholder = "Enter TV Show ID";
-        currentType = "tv";
-      }
+  function updateSlider(type) {
+    if (type === "movie") {
+      slider.style.left = "0";
+      movieBtn.classList.add("active");
+      tvshowBtn.classList.remove("active");
+      seasonInput.style.display = "none";
+      episodeInput.style.display = "none";
+      showIdInput.placeholder = "Enter Movie ID";
+      currentType = "movie";
+    } else {
+      slider.style.left = "50%";
+      tvshowBtn.classList.add("active");
+      movieBtn.classList.remove("active");
+      seasonInput.style.display = "block";
+      episodeInput.style.display = "block";
+      showIdInput.placeholder = "Enter TV Show ID";
+      currentType = "tv";
     }
+  }
 
-    movieBtn.addEventListener("click", () => updateSlider("movie"));
-    tvshowBtn.addEventListener("click", () => updateSlider("tv"));
+  movieBtn.addEventListener("click", () => updateSlider("movie"));
+  tvshowBtn.addEventListener("click", () => updateSlider("tv"));
 
-    // Go button
-    goButton.addEventListener("click", () => {
-      const showId = showIdInput.value.trim();
-      const season = seasonInput.value.trim();
-      const episode = episodeInput.value.trim();
+  goButton.addEventListener("click", () => {
+  const showId = showIdInput.value.trim();
+  const season = seasonInput.value.trim();
+  const episode = episodeInput.value.trim();
 
-      if(!showId) { alert("Enter a Movie or TV Show ID."); return; }
+  if (!showId) { alert("Enter a Movie or TV Show ID."); return; }
 
-      let url = "";
-      if(currentType === "movie") {
-        url = `https://www.vidking.net/embed/movie/${showId}`;
-      } else if(currentType === "tv") {
-        if(!season || !episode) { alert("Enter Season and Episode."); return; }
-        url = `https://www.vidking.net/embed/tv/${showId}/${season}/${episode}`;
-      }
+  let url = "";
+  if (currentType === "movie") {
+    url = `https://www.vidking.net/embed/movie/${showId}`;
+  } else if (currentType === "tv") {
+    if (!season || !episode) { alert("Enter Season and Episode."); return; }
+    url = `https://www.vidking.net/embed/tv/${showId}/${season}/${episode}`;
+  }
 
-      const w = window.open("", "_blank");
-      if(!w) { alert("Popup blocked! Allow popups."); return; }
+  const w = window.open("", "_blank");
+  if (!w) { alert("Popup blocked! Allow popups."); return; }
 
-      w.document.body.style.margin = "0";
-      w.document.body.style.height = "100vh";
+  w.document.body.style.margin = "0";
+  w.document.body.style.height = "100vh";
 
-      const iframe = w.document.createElement("iframe");
-      iframe.src = url;
-      iframe.style.width = "100%";
-      iframe.style.height = "100%";
-      iframe.style.border = "none";
-      iframe.allowFullscreen = true;
+  const iframe = w.document.createElement("iframe");
+  iframe.src = url;
+  iframe.style.width = "100%";
+  iframe.style.height = "100%";
+  iframe.style.border = "none";
+  iframe.allowFullscreen = true;
 
-      w.document.body.appendChild(iframe);
-    });
+  w.document.body.appendChild(iframe);
+});
 
-    updateSlider("movie");
-  });
+
+  // Default state
+  updateSlider("movie");
+});
   </script>
-
 </body>
 </html>
