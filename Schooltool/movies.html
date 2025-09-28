@@ -14,26 +14,137 @@
     /* Particles background */
     #particles-js {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      background: #000;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1; background: #000;
     }
 
     /* Body */
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      height: 100vh;
-      overflow: hidden;
-      background: #000;
+    body, header, nav, input, button {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+
+    /* --- HEADER LAYOUT --- */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(25, 25, 25, 0.7);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
     }
 
-    /* Frosted glass panel */
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-img {
+      height: 42px;
+      transition: transform 0.2s ease;
+    }
+    .logo-img:hover { transform: scale(1.05); }
+
+    .nav-center {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex: 1;
+    }
+    .nav-center a {
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .nav-center a:hover {
+      background: rgba(79,195,247,0.25);
+      border-color: #4FC3F7;
+      box-shadow: 0 0 10px rgba(79,195,247,0.4);
+      transform: translateY(-2px);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    #settings {
+      background: linear-gradient(135deg, #4FC3F7, #2196F3);
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    #settings:hover {
+      transform: rotate(25deg) scale(1.1);
+      box-shadow: 0 0 15px rgba(79,195,247,0.6);
+    }
+
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-wrapper .search-btn {
+      background: linear-gradient(135deg, #4FC3F7, #2196F3);
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .search-wrapper .search-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(79,195,247,0.6);
+    }
+    .search-wrapper input {
+      position: absolute;
+      right: 50px;
+      width: 0;
+      opacity: 0;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+      transition: width 0.4s ease, opacity 0.3s ease;
+    }
+    .search-wrapper.active input {
+      width: 180px;
+      opacity: 1;
+    }
+
+    /* Panel, buttons, inputs, and goButton styles remain unchanged */
     .panel {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
       padding: 40px;
       border-radius: 20px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.25);
@@ -48,7 +159,6 @@
       z-index: 1;
     }
 
-    /* Button container */
     .button-container {
       position: relative;
       display: flex;
@@ -83,14 +193,6 @@
       transition: left 0.3s;
     }
 
-    .settings-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    }
-
-    /* Inputs */
     .inputs input {
       width: 100%;
       padding: 12px;
@@ -107,7 +209,6 @@
     .inputs input::placeholder { color: rgba(255,255,255,0.7); }
     .inputs input:focus { background: rgba(255,255,255,0.25); }
 
-    /* Go button */
     #goButton {
       padding: 12px 25px;
       font-size: 16px;
@@ -119,68 +220,52 @@
       transition: all 0.3s;
       width: 100%;
     }
-    #goButton:hover { background: rgba(40, 167, 69, 1); }
+    #goButton:hover { background: rgb(40, 167, 69); }
 
-    /* Header */
-    .site-header {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      z-index: 2;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-    .site-header .header-content { display: flex; justify-content: space-between; width: 100%; align-items: center; }
-    .site-header .logo { font-weight: bold; font-size: 1.2rem; }
-    .header-right { display: flex; align-items: center; gap: 10px; }
-    .header-right a, .header-right button { color: white; text-decoration: none; background: none; border: none; cursor: pointer; }
-    .header-right a.active { text-decoration: underline; }
-
-    /* Settings overlay */
+    /* Settings Overlay */
     .settings-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 10; justify-content: center; align-items: center; }
     .settings-popup { background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); padding: 20px; border-radius: 15px; width: 300px; color: white; }
     .settings-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
     .settings-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; cursor: pointer; border: none; width: 100%; color: white; }
 
-
-
-</style>
+  </style>
 </head>
 <body class="dark-mode">
 
   <!-- Particles background -->
   <div id="particles-js"></div>
 
-  <!-- Header -->
+  <!-- HEADER (updated like second HTML) -->
   <header class="site-header" id="mainHeader">
-   <div class="header-content">
-    <div class="logo">
-      <img src="logo.png" alt="Logo" class="logo-img" />
-</div>
-    <div class="header-right">
-  <a href="index.html" class="home-link">Home</a>
-  <a href="movies.html" class="movies-link">Movies</a>
-  <a href="about.html" class="about-link">About</a>
-  <a href="changelog.html" class="changelog-link">Changelog</a>
-  <button id="settings" aria-label="Settings" title="Settings">⚙</button>
-</div>
-  </div>
-</header>
+    <div class="header-content">
 
+      <!-- LEFT: LOGO -->
+      <div class="logo">
+        <img src="logo.png" alt="Logo" class="logo-img" />
+      </div>
+
+      <!-- CENTER: NAVIGATION -->
+      <nav class="nav-center">
+        <a href="home.html">Home</a>
+        <a href="index.html">Games</a>
+      </nav>
+
+      <!-- RIGHT: SEARCH + SETTINGS -->
+      <div class="header-right">
+        <div class="search-wrapper">
+          <input type="text" id="searchBar" placeholder="Search..." />
+        </div>
+        <button id="settings" aria-label="Settings" title="Settings">⚙</button>
+      </div>
+    </div>
+  </header>
 
   <!-- Settings Overlay -->
   <div id="settingsOverlay" class="settings-overlay" aria-hidden="true">
     <div class="settings-popup">
       <div class="settings-header">
         <h3>Settings</h3>
-        <button id="closeSettings" aria-label="Close settings">‎ ‎ ‎ ‎ ‎‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ×</button>
+        <button id="closeSettings" aria-label="Close settings">‎ ‎ ‎ ‎ ‎‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎×</button>
       </div>
       <div class="settings-body">
         <button class="settings-item" id="toggle-particles"><i class="fa-solid fa-toggle-on" style="color: #63E6BE;"></i> Toggle Particles</button>
@@ -192,7 +277,7 @@
     </div>
   </div>
 
-  <!-- Panel -->
+  <!-- PANEL -->
   <div class="panel">
     <div class="button-container">
       <button id="movieBtn" class="active">Movie</button>
