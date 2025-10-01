@@ -943,6 +943,4 @@ tvshowBtn.addEventListener("click", () => updateSlider("tv"));
 
 // Initialize default state
 updateSlider("movie");
-
 });
-
