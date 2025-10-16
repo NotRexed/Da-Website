@@ -150,10 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleThemeBtn = document.getElementById('toggle-theme');
 
     // CDN / paths
-    const defaultZones = "https://cdn.jsdelivr.net/gh/NotRexed/assets@latest/zones.json";
-    const fallbackZones = "https://cdn.jsdelivr.net/gh/NotRexed/assets@latest/zones.json";
-    const coverURL = "https://cdn.jsdelivr.net/gh/NotRexed/covers@main";
-    const htmlURL = "https://cdn.jsdelivr.net/gh/NotRexed/html@main";
+    const defaultZones = "https://cdn.jsdelivr.net/gh/Notrexed/assets@latest/allzone.json";
+    const fallbackZones = "https://cdn.jsdelivr.net/gh/Notrexed/assets@latest/allzone.json";
+    const coverURL = "https://cdn.jsdelivr.net/gh/Notrexed/covers@main";
+    const htmlURL = "https://cdn.jsdelivr.net/gh/Notrexed/html@latest";
 
     // state
     let zones = [];
