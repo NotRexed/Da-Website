@@ -5,26 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Movies & TV Selector</title>
 
-  <!-- Stylesheets -->
    <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
   <style>
-    /* Particles background */
     #particles-js {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       z-index: -1; background: #000;
     }
 
-    /* Body */
     body, header, nav, input, button {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 
-    /* --- HEADER LAYOUT --- */
     header.site-header {
       position: sticky;
       top: 0;
@@ -141,7 +137,6 @@
       opacity: 1;
     }
 
-    /* Panel, buttons, inputs, and goButton styles remain unchanged */
     .panel {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(15px);
@@ -222,7 +217,6 @@
     }
     #goButton:hover { background: rgb(40, 167, 69); }
 
-    /* Settings Overlay */
     .settings-overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); z-index: 10; justify-content: center; align-items: center; }
     .settings-popup { background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); padding: 20px; border-radius: 15px; width: 300px; color: white; }
     .settings-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
@@ -232,25 +226,20 @@
 </head>
 <body class="dark-mode">
 
-  <!-- Particles background -->
   <div id="particles-js"></div>
 
-  <!-- HEADER (updated like second HTML) -->
   <header class="site-header" id="mainHeader">
     <div class="header-content">
 
-      <!-- LEFT: LOGO -->
       <div class="logo">
         <img src="logo.png" alt="Logo" class="logo-img" />
       </div>
 
-      <!-- CENTER: NAVIGATION -->
       <nav class="nav-center">
         <a href="home.html">Home</a>
         <a href="index.html">Games</a>
       </nav>
 
-      <!-- RIGHT: SEARCH + SETTINGS -->
       <div class="header-right">
         <div class="search-wrapper">
           <input type="text" id="searchBar" placeholder="Search..." />
@@ -260,7 +249,7 @@
     </div>
   </header>
 
-  <!-- Settings Overlay -->
+
   <div id="settingsOverlay" class="settings-overlay" aria-hidden="true">
     <div class="settings-popup">
       <div class="settings-header">
@@ -277,7 +266,7 @@
     </div>
   </div>
 
-  <!-- PANEL -->
+
   <div class="panel">
     <div class="button-container">
       <button id="movieBtn" class="active">Movie</button>
@@ -294,7 +283,7 @@
     <button id="goButton" type="button">Go</button>
   </div>
 
-  <!-- Scripts -->
+
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="script.js"></script>
   <script>
@@ -363,9 +352,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-  // Default state
+
   updateSlider("movie");
 });
   </script>
 </body>
+
 </html>
