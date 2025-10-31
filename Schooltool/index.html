@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-<script type="text/javascript">
+<!-- Adcash Autotag -->
+<script async src="https://acscdn.com/script/aclib.js"></script>
+<script>
+window.addEventListener('load', function() {
+  if (typeof aclib !== 'undefined') {
     aclib.runAutoTag({
-        zoneId: 'myfczqa6ub',
+      zoneId: 'myfczqa6ub'
     });
+  } else {
+    console.warn("Adcash library not loaded yet.");
+  }
+});
 </script>
+<!-- End Adcash Autotag -->
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QM4G4R0TNM"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -336,6 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
 </body>
 </html>
+
 
 
 
